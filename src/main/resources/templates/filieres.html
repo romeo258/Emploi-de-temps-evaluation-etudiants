@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FILIERE</title>
+    <link rel = "stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel = "stylesheet" href="/webjars/bootstrap-icons/1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./tabp.css">
+
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="p-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-sm-3 col-xs-12">
+                                    <h4 class="title">Liste <span>filieres</span></h4>
+                                </div>
+                                <div class="col-sm-9 col-xs-12 text-right">
+                                    <form method="get" th:action="@{filiere}">
+                                        <div class="btn_group">
+                                            <input type="text" name="keyword" class="form-control" placeholder="Rechercher">
+                                            <button type="submit" class="btn btn-default" title="Rechercher"><i class="bi bi-search"></i></button>
+                                            <button class="btn btn-default" title="Rafraichir"><i class="bi bi-arrow-clockwise"></i></button>
+                                            <button class="btn btn-default" title="Imprimer Pdf"><i class="bi bi-file-earmark-pdf"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Code De la Filière</th>
+                                    <th>Libelle</th>
+                                    <th>Action</th>
+                                </tr>
+                                <tr th:each="f:${ListFilieres}">
+                                    <td th:text="${f.codeFil}"></td>
+                                    <td th:text="${f.libelleFil}"></td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a class="btn btn-success" th:href="@{/editFiliere(codeFil=${f.codeFil})}" data-tip="edit"><i class="bi bi-pencil-square"></i></a>
+                                            </div>
+                                            <div class="col-6">
+                                                <a th:attr="onclick='return confirm(\'Voulez-vous supprimer la filiere ' + ${f.libelleFil} + ' ?\')'"
+                                                   th:href="@{deletef(codeFil=${f.codeFil}, keyword=${keyword}, page=${currentPage})}" data-tip="delete" class="btn btn-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="panel-footer">
+                            <ul class="nav nav-pills">
+                                <li th:each="v,item:${pages}">
+                                    <a th:href="@{/filiere(page=${item.index}, keyword=${keyword})}"
+                                       th:class="${(currentPage==item.index)?'btn btn-info ms-1':'btn btn-outline-info ms-1'}"
+                                       th:text="${1+item.index}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--------------------------------- FIN TBALBEAU PERSONNALISER --------------------------------->
+
+</div>
+</body>
+</html>

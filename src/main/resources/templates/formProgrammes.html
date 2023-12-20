@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nouveau Programme</title>
+
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="row mt-3">
+    <div class="col-md-6 offset-3">
+      <div class="card">
+        <div class="card-header">Nouveau programme</div>
+        <div class="card-body">
+          <div class="p-3">
+            <form th:action="@{/saveProgramme}" method="post">
+              <div class="mb-2">
+                <label class="form-label">Code Programme</label>
+                <input type="text" name="codePro" class="form-control" th:value="${programme.codePro}">
+                <span class="text-danger" th:errors="${programme.codePro}"></span>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Classe</label>
+                <select name="classes" id="classes" class="form-control">
+                  <option th:each="classe : ${classes}"
+                          th:value="${classe.codeCl}"
+                          th:text="${classe.codeCl}">
+                  </option>
+                </select>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Matière</label>
+                <select name="matieres" id="matieres" class="form-control">
+                  <option th:each="matiere : ${matieres}"
+                          th:value="${matiere.codeMat}"
+                          th:text="${matiere.codeMat}">
+                  </option>
+                </select>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Filière</label>
+                <select name="filieres" id="filieres" class="form-control">
+                  <option th:each="filiere : ${filieres}"
+                          th:value="${filiere.codeFil}"
+                          th:text="${filiere.codeFil}">
+                  </option>
+                </select>
+              </div>
+              <!--<div class="mb-2">
+                  <label class="form-label">Client</label>
+                  <input type="text" name="clientFac" class="form-control" th:value="${facture.clientFac}">
+                  <span class="text-danger" th:errors="${facture.clientFac}"></span>
+              </div>  -->
+
+              <div class="mb-2">
+                <label class="form-label">Date D'evaluation</label>
+                <input type="date" name="date" class="form-control" th:value="${programme.date}">
+                <span class="text-danger" th:errors="${programme.date}"></span>
+              </div>
+
+              <button class="btn btn-success">Enregistrer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

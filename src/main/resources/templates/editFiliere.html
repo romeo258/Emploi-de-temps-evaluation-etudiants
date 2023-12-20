@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mise À Jour de la filiere</title>
+
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="row mt-3">
+    <div class="col-md-6 offset-3">
+      <div class="card">
+        <div class="card-header">Mise à Jour de la Filiere</div>
+        <div class="card-body">
+          <div class="p-3">
+            <form th:action="@{/saveFiliere}" method="post">
+              <div class="mb-2">
+                <label class="form-label">Code</label>: <label th:text="${filiere.codeFil}"></label>
+                <input type="hidden" name="codeFil" class="form-control" th:value="${filiere.codeFil}">
+
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Libelle</label>
+                <input type="text" name="libelleFil" class="form-control" th:value="${filiere.libelleFil}">
+                <span class="text-danger" th:errors="${filiere.libelleFil}"></span>
+              </div>
+
+              <button class="btn btn-success">Modifier</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
